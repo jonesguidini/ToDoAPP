@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APP.Domain.Entities
 {
+    [NotMapped]
     public class User : DeletedEntity
     {
         public string Username { get; set; }

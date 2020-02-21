@@ -1,7 +1,6 @@
 [
     {
-      "
-        ": "admin",
-        "email": "email@gmail.com"
+      "username": "admin",
+      "email": "email@gmail.com"
     }
 ]

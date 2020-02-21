@@ -29,7 +29,7 @@ namespace APP.Data.Context
             var optionsBuilder = new DbContextOptionsBuilder<SQLContext>();
             var connectionString = config.GetConnectionString("APPBD");
             Console.WriteLine($"CONNECTION STRING: {connectionString}");
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseMySql(connectionString);
 
             return new SQLContext(optionsBuilder.Options);
         }

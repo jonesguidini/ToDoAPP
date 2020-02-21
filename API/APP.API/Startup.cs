@@ -1,4 +1,10 @@
 using System.Text;
+using APP.API.Data;
+using APP.API.Helpers;
+using APP.API.Swagger;
+using APP.Business.Services;
+using APP.Data.Context;
+using APP.IOC;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
@@ -15,12 +21,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using APP.API.Data;
-using APP.API.Helpers;
-using APP.API.Swagger;
-using APP.Business.Services;
-using APP.Data.Context;
-using APP.IOC;
+//using Pomelo.EntityFrameworkCore.MySql;
+
 
 namespace APP.API
 {
@@ -45,7 +47,7 @@ namespace APP.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<SQLContext>(options => options.UseSqlServer(Configuration.GetConnectionString("APPBD")));
+            services.AddDbContext<SQLContext>(options => options.UseMySql(Configuration.GetConnectionString("APPBD")));
             services.AddControllers();
             //services.ConfigureJwtAuthorization();
 
@@ -88,7 +90,7 @@ namespace APP.API
                   opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
               });
 
-            //services.AddTransient<SeedInitialData>(); // descomente aqui para habilitar Seed dos dados iniciais
+            services.AddTransient<SeedInitialData>(); // descomente aqui para habilitar Seed dos dados iniciais
 
         }
 
@@ -109,7 +111,7 @@ namespace APP.API
         public void Configure(
             IApplicationBuilder app, 
             IWebHostEnvironment env
-            //,SeedInitialData seeder // descomente aqui para habilitar Seed dos dados iniciais
+            ,SeedInitialData seeder // descomente aqui para habilitar Seed dos dados iniciais
             )
         {
             

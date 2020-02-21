@@ -15,7 +15,7 @@ namespace APP.Data.Mappings
 
             builder.Property(x => x.Created)
                 .ValueGeneratedOnAdd()
-                .HasColumnType("datetime2")
+                .HasColumnType("datetime")
                 .HasColumnName("Created");
 
             builder.Property(x => x.Username)
@@ -25,12 +25,12 @@ namespace APP.Data.Mappings
 
             builder.Property(x => x.PasswordHash)
                 .IsRequired(true)
-                .HasColumnType("nvarchar(max)")
+                .HasColumnType("varchar(1000)")
                 .HasColumnName("PasswordHash");
 
             builder.Property(x => x.PasswordSalt)
                 .IsRequired(true)
-                .HasColumnType("nvarchar(max)")
+                .HasColumnType("varchar(1000)")
                 .HasColumnName("PasswordSalt");
 
             builder.Property(x => x.Email)
