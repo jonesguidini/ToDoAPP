@@ -35,15 +35,13 @@ namespace APP.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<TodoVM>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
-            List<string> includes = new List<string> { "TodoCategory" };
-
-            var todoCategories = await _todoService.GetAll(includes);
+            var todoCategories = await _todoService.GetAll();
             var listTodoVM = _mapper.Map<IEnumerable<TodoVM>>(todoCategories);
             return CustomResponse(listTodoVM);
         }
 
         /// <summary>
-        /// Retornar categoria de despesa filtrado pelo parametro 'id'
+        /// Retornar Tarefa filtrado pelo parametro 'id'
         /// </summary>
         /// <param name="id">Parâmetro para filtro por ID </param>
         /// <returns></returns>
@@ -52,15 +50,13 @@ namespace APP.API.Controllers
         [ProducesResponseType(typeof(TodoVM), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetById(int id)
         {
-            List<string> includes = new List<string> { "TodoCategory" };
-            var todoCategory = await _todoService.GetById(id, includes);
-
-            TodoVM todoCategoryVM = _mapper.Map<TodoVM>(todoCategory);
-            return CustomResponse(todoCategoryVM);
+            var todo = await _todoService.GetById(id);
+            TodoVM todoVM = _mapper.Map<TodoVM>(todo);
+            return CustomResponse(todoVM);
         }
 
         /// <summary>
-        /// Criar nova categoria de despesa
+        /// Criar nova Tarefa
         /// </summary>
         /// <param name="todoDTO">Objeto informado para cadastro do registro</param>
         /// <returns></returns>
@@ -68,16 +64,16 @@ namespace APP.API.Controllers
         [Route("add")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Create(TodoDto todoDTO)
+        public async Task<IActionResult> Create(TodoDTO todoDTO)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             var todo = _mapper.Map<Todo>(todoDTO);
             await _todoService.Add(todo);
-            return CustomResponse("Categoria de despesa cadastrada com sucesso");
+            return CustomResponse("Tarefa cadastrada com sucesso");
         }
 
         /// <summary>
-        /// Atualizar categoria de despesa
+        /// Atualizar Tarefa
         /// </summary>
         /// <param name="id">Parâmetro para filtro da categoria a ser alterada</param>
         /// <param name="todoDTO">Objeto da categoria a ser alterada </param>
@@ -86,10 +82,10 @@ namespace APP.API.Controllers
         [Route("update/{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update(int id, TodoDto todoDTO)
+        public async Task<IActionResult> Update(int id, TodoDTO todoDTO)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-            var todoCategoryBanco = await _todoService.GetById(id);
+            var todoBanco = await _todoService.GetById(id);
 
             if (id != todoDTO.Id)
             {
@@ -99,11 +95,11 @@ namespace APP.API.Controllers
 
             var todo = _mapper.Map<Todo>(todoDTO);
             await _todoService.Update(todo);
-            return CustomResponse("Categoria de despesas atualizada com sucesso!");
+            return CustomResponse("Tarefas atualizada com sucesso!");
         }
 
         /// <summary>
-        /// Excluir categoria de despesa
+        /// Excluir Tarefa
         /// </summary>
         /// <param name="id">Parâmetro para filtro da categoria a ser exclu´´ida</param>
         /// <returns></returns>
@@ -117,13 +113,13 @@ namespace APP.API.Controllers
 
             if (todo == null)
             {
-                NotificarError("Categoria de Despesa", "A Categoria de despesa informada não existe.");
+                NotificarError("Tarefa", "A Tarefa informada não existe.");
                 return CustomResponse();
             }
 
             await _todoService.DeleteLogically(todo);
 
-            return CustomResponse("Categoria de despesa excluida com sucesso!");
+            return CustomResponse("Tarefa excluida com sucesso!");
         }
 
     }

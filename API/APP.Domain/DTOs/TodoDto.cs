@@ -5,7 +5,7 @@ using APP.Domain.Entities;
 
 namespace APP.Domain.DTOs
 {
-    public class TodoDto : BaseEntity
+    public class TodoDTO : BaseEntity
     {
         public string Title { get; set; }
     }
