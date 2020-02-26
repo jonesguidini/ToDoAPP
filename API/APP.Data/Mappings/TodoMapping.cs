@@ -23,6 +23,12 @@ namespace APP.Data.Mappings
                 .HasColumnType("varchar(100)")
                 .HasColumnName("Title");
 
+            builder
+                .HasOne(x => x.DeletedByUser)
+                .WithMany(y => y.ToDos)
+                .HasForeignKey(x => x.DeletedByUserId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("ToDo.Possui.UserDeleted");
         }
     }
 }
