@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using APP.Domain.Contracts.Managers;
 using APP.Domain.Contracts.Services;
@@ -8,6 +6,7 @@ using APP.Domain.DTOs;
 using APP.Domain.Entities;
 using APP.Domain.VMs;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +14,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APP.API.Controllers
 {
+    [Authorize]
+    [Route("api/todos")]
+    [ApiController]
     public class TodoController : APIController
     {
         private readonly ITodoService _todoService;
