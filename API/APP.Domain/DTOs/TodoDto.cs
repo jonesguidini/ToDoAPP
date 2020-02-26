@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using APP.Domain.Entities;
 
-namespace APP.Domain.Entities
+namespace APP.Domain.DTOs
 {
-    public class Todo : DeletedEntity
+    public class TodoDto : BaseEntity
     {
         public string Title { get; set; }
     }
