@@ -17,7 +17,7 @@ namespace APP.API.Swagger
                 
                 //c.SchemaFilter<EnumSchemaFilter>(); // config para definir enums como string no swagger
 
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "APP", Version = "v1", Description = "Documentação da API do APP" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TODO APP", Version = "v1", Description = "Documentação da API do TODO APP" });
                 c.AddSecurityDefinition("bearer",
                     new OpenApiSecurityScheme
                     {
@@ -62,6 +62,7 @@ namespace APP.API.Swagger
                 c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "APP API v1");
+                    c.RoutePrefix = "";
                 });
 
             return app;
