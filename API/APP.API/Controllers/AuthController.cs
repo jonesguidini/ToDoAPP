@@ -67,50 +67,59 @@ namespace APP.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Login(UserForLoginDTO userForLoginDTO)
         {
-            var userFromRepo = await _repo.Login(userForLoginDTO.Username.ToLower(), userForLoginDTO.Password);
-
-            if (userFromRepo == null)
+            try
             {
-                NotificarError("Login", "Usuário ou senha não conferem.");
-                return CustomResponse();
-                //return Unauthorized();
-            }
+                var userFromRepo = await _repo.Login(userForLoginDTO.Username.ToLower(), userForLoginDTO.Password);
 
-            // cria dois claims
-            var claims = new[]
-            {
+                if (userFromRepo == null)
+                {
+                    NotificarError("Login", "Usuário ou senha não conferem.");
+                    return CustomResponse();
+                    //return Unauthorized();
+                }
+
+                // cria dois claims
+                var claims = new[]
+                {
                 new Claim("UserId", userFromRepo.Id.ToString()),
                 new Claim("UserName", userFromRepo.Username)
                 //new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 //new Claim(ClaimTypes.Name, userFromRepo.Username)
             };
 
-            // cria a key a ser usada na credencial em base do token informado no arquivo appsettings.json
-            var key = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(_config.GetSection("AppSettings:Token").Value));
+                // cria a key a ser usada na credencial em base do token informado no arquivo appsettings.json
+                var key = new SymmetricSecurityKey(Encoding.UTF8
+                    .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            // cria a credencial
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                // cria a credencial
+                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-            // Cria estrutura do token
-            var tokenDecriptor = new SecurityTokenDescriptor
+                // Cria estrutura do token
+                var tokenDecriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims), // com base nas claims já criada anteriormente
+                    Expires = DateTime.Now.AddDays(1), // expira em 1 dia   
+                    SigningCredentials = credentials // com base na credencial criada anteiormente
+                };
+
+                // cria um handler de token a ser usando para gerar o token
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                // gera o token
+                var token = tokenHandler.CreateToken(tokenDecriptor);
+
+                // retorna o tolen gerado
+                return CustomResponse(new
+                {
+                    token = tokenHandler.WriteToken(token)
+                });
+            }
+            catch (Exception ex)
             {
-                Subject = new ClaimsIdentity(claims), // com base nas claims já criada anteriormente
-                Expires = DateTime.Now.AddDays(1), // expira em 1 dia   
-                SigningCredentials = credentials // com base na credencial criada anteiormente
-            };
-
-            // cria um handler de token a ser usando para gerar o token
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            // gera o token
-            var token = tokenHandler.CreateToken(tokenDecriptor);
-
-            // retorna o tolen gerado
-            return CustomResponse(new
-            {
-                token = tokenHandler.WriteToken(token)
-            });
+                var message = ex.InnerException != null ? ex.InnerException.ToString() : ex.Message;
+                return CustomResponse(message);
+            }
+            
 
         }
     }
