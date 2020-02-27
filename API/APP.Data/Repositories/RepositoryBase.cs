@@ -94,7 +94,7 @@ namespace APP.Data.Repositories
         /// <returns></returns>
         public virtual async Task<IQueryable<TEntity>> GetAll(bool? getDeletedRegisters = false)
         {
-            return await FindAsync(x => x.Id != null && x.IsDeleted == getDeletedRegisters, null);
+            return await FindAsync(x => x.Id != 0 && x.IsDeleted == getDeletedRegisters, null);
         }
 
         public virtual async Task<IQueryable<TEntity>> GetAll(IList<string> includes, bool? getDeletedRegisters = false)
