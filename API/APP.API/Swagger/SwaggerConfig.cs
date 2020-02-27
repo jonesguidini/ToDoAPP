@@ -39,7 +39,7 @@ namespace APP.API.Swagger
                     }
                 });
 
-                c.DescribeAllEnumsAsStrings();
+                //c.DescribeAllEnumsAsStrings();
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
