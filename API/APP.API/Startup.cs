@@ -51,7 +51,7 @@ namespace APP.API
             services.AddControllers();
             //services.ConfigureJwtAuthorization();
 
-            // adiciona autenticação middleware (Jwt)
+            // adiciona autenticaï¿½ï¿½o middleware (Jwt)
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -137,7 +137,7 @@ namespace APP.API
                 .AllowAnyHeader();
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
