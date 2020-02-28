@@ -18,9 +18,13 @@ namespace APP.Data.Context
         /// <returns>Contexto do banco</returns>
         public SQLContext CreateDbContext(string[] args)
         {
+            var teste = Path.Combine(Directory.GetCurrentDirectory());
+
+            
             // Build config
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory()))
+                //.SetBasePath("C:\\workspace_core\\ToDoAPP\\API\\APP.API") // TODO ajustar o SetBasePath para pegar do projeto APP.API (para rodar database no VS code)
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
                 .Build();
