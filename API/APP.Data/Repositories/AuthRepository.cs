@@ -9,10 +9,10 @@ namespace APP.Data.Repositories
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly SQLContext _context;
+        private readonly DBContext _context;
         private DbSet<User> _users;
 
-        public AuthRepository(SQLContext context)
+        public AuthRepository(DBContext context)
         {
             _context = context;
             _users = context.Set<User>();

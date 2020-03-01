@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace APP.Data.Context
 {
-    public class SQLContext : DbContext
+    public class DBContext : DbContext
     {
-        public SQLContext(DbContextOptions<SQLContext> options) : base(options)
+        public DBContext(DbContextOptions<DBContext> options) : base(options)
         {
             this.ChangeTracker.LazyLoadingEnabled = false;
             this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;

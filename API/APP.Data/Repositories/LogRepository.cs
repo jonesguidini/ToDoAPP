@@ -7,7 +7,7 @@ namespace APP.Data.Repositories
 {
     public class LogRepository : RepositoryBase<Log>, ILogRepository
     {
-        public LogRepository(SQLContext DataContext, INotificationManager _gerenciadorNotificacoes) : base(DataContext, _gerenciadorNotificacoes)
+        public LogRepository(DBContext DataContext, INotificationManager _gerenciadorNotificacoes) : base(DataContext, _gerenciadorNotificacoes)
         {
         }
     }

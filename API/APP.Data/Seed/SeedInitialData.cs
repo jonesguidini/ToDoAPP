@@ -11,10 +11,10 @@ namespace APP.API.Data
 {
     public class SeedInitialData
     {
-        private readonly SQLContext _context;
+        private readonly DBContext _context;
         private DbSet<User> _users;
 
-        public SeedInitialData(SQLContext context)
+        public SeedInitialData(DBContext context)
         {
             _context = context;
             _users = context.Set<User>();

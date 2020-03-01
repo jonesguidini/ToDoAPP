@@ -7,7 +7,7 @@ namespace APP.Data.Repositories
 {
     public class TodoRepository : RepositoryBase<Todo>, ITodoRepository
     {
-        public TodoRepository(SQLContext DataContext, INotificationManager _gerenciadorNotificacoes) : base(DataContext, _gerenciadorNotificacoes)
+        public TodoRepository(DBContext DataContext, INotificationManager _gerenciadorNotificacoes) : base(DataContext, _gerenciadorNotificacoes)
         {
         }
     }

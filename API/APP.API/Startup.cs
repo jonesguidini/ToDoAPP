@@ -47,7 +47,7 @@ namespace APP.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<SQLContext>(options => options.UseMySql(Configuration.GetConnectionString("APPBD")));
+            services.AddDbContext<DBContext>(options => options.UseMySql(Configuration.GetConnectionString("APPBD")));
             services.AddControllers();
             //services.ConfigureJwtAuthorization();
 
