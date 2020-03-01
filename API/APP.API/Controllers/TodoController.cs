@@ -41,6 +41,20 @@ namespace APP.API.Controllers
         }
 
         /// <summary>
+        /// Filtrar tarefas por nomes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("search/{title}")]
+        [ProducesResponseType(typeof(IEnumerable<TodoVM>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> FilterTodos(string title)
+        {
+            var filterCategories = await _todoService.Search(x => x.Title.ToLower().Contains(title.ToLower()));
+            var listTodoVM = _mapper.Map<IEnumerable<TodoVM>>(filterCategories);
+            return CustomResponse(listTodoVM);
+        }
+
+        /// <summary>
         /// Retornar Tarefa filtrado pelo parametro 'id'
         /// </summary>
         /// <param name="id">Parâmetro para filtro por ID </param>
