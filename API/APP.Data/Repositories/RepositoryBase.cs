@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using APP.Business.Config;
+﻿using APP.Business.Config;
 using APP.Data.Context;
 using APP.Domain.Contracts.Managers;
 using APP.Domain.Contracts.Repositories;
 using APP.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

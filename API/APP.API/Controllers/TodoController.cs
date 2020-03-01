@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using APP.Domain.Contracts.Managers;
+﻿using APP.Domain.Contracts.Managers;
 using APP.Domain.Contracts.Services;
 using APP.Domain.DTOs;
 using APP.Domain.Entities;
@@ -9,6 +7,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -68,6 +68,8 @@ namespace APP.API.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             var todo = _mapper.Map<Todo>(todoDTO);
+            todo.IsDone = false;
+
             await _todoService.Add(todo);
             return CustomResponse("Tarefa cadastrada com sucesso");
         }
@@ -96,6 +98,34 @@ namespace APP.API.Controllers
             var todo = _mapper.Map<Todo>(todoDTO);
             await _todoService.Update(todo);
             return CustomResponse("Tarefas atualizada com sucesso!");
+        }
+
+
+        /// <summary>
+        /// Atualizar Status da Tarefa , se estiver 'Done' vai desfazer e vice versa
+        /// </summary>
+        /// <param name="id">Parâmetro para filtro da categoria a ser alterada</param>
+        /// <param name="todoDTO">Objeto da categoria a ser alterada </param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("updateStatus/{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateStatus(int id)
+        {
+            if (id == 0)
+            {
+                NotificarError("Id", "O ID informado não existe.");
+                return CustomResponse();
+            }
+
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            var todoBanco = await _todoService.GetById(id);
+
+            todoBanco.IsDone = todoBanco.IsDone == null ? true : !todoBanco.IsDone;
+
+            await _todoService.Update(todoBanco);
+            return CustomResponse("O status da tarefa foi atualizada com sucesso!");
         }
 
         /// <summary>

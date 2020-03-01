@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using APP.Data.Context;
+﻿using APP.Data.Context;
 using APP.Domain.Contracts.Managers;
 using APP.Domain.Contracts.Repositories;
 using APP.Domain.Entities;

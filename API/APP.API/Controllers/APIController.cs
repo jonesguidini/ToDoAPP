@@ -65,7 +65,7 @@ namespace APP.API.Controllers
 
         protected ActionResult VerificaSeObjetoEstaNuloRetornaNotificacao(object result, string key, string message)
         {
-            if(result == null)
+            if (result == null)
             {
                 NotificarError(key, message);
                 return CustomResponse();

@@ -1,6 +1,6 @@
-﻿using Autofac;
-using APP.Domain.Contracts.FluentValidation;
+﻿using APP.Domain.Contracts.FluentValidation;
 using APP.Domain.Entities.FluentValidation;
+using Autofac;
 
 namespace APP.IOC
 {

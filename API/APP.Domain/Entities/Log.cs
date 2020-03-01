@@ -1,5 +1,3 @@
-using System;
-
 namespace APP.Domain.Entities
 {
     public class Log : DeletedEntity

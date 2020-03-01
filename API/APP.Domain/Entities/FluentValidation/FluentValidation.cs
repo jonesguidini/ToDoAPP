@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using APP.Domain.Contracts.FluentValidation;
 using FluentValidation;
-using APP.Domain.Contracts.FluentValidation;
+using System.ComponentModel.DataAnnotations;
 
 namespace APP.Domain.Entities.FluentValidation
 {
-    public class FluentValidation<TEntity> : AbstractValidator<TEntity>, IFluentValidation<TEntity>  where TEntity : class
+    public class FluentValidation<TEntity> : AbstractValidator<TEntity>, IFluentValidation<TEntity> where TEntity : class
     {
         private ValidationResult validation;
 
-        public FluentValidation() {
+        public FluentValidation()
+        {
         }
 
         public ValidationResult GetValidations()
@@ -18,7 +19,8 @@ namespace APP.Domain.Entities.FluentValidation
 
         public virtual void SetValidation() { }
 
-        public virtual void SetValidation(ValidationResult _validation) {
+        public virtual void SetValidation(ValidationResult _validation)
+        {
             validation = _validation;
         }
 

@@ -1,4 +1,3 @@
-using System.Text;
 using APP.API.Data;
 using APP.API.Helpers;
 using APP.API.Swagger;
@@ -21,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Text;
 //using Pomelo.EntityFrameworkCore.MySql;
 
 
@@ -53,7 +53,8 @@ namespace APP.API
 
             // adiciona autentica��o middleware (Jwt)
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => {
+            .AddJwtBearer(options =>
+            {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -109,12 +110,12 @@ namespace APP.API
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
-            IApplicationBuilder app, 
+            IApplicationBuilder app,
             IWebHostEnvironment env
-            ,SeedInitialData seeder // descomente aqui para habilitar Seed dos dados iniciais
+            , SeedInitialData seeder // descomente aqui para habilitar Seed dos dados iniciais
             )
         {
-            
+
             // If, for some reason, you need a reference to the built container, you
             // can use the convenience extension method GetAutofacRoot.
             this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();

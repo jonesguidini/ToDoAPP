@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using APP.Domain.DTOs;
+﻿using APP.Domain.DTOs;
 using APP.Domain.Entities;
 using APP.Domain.VMs;
-using System.Linq;
+using AutoMapper;
 
 namespace APP.API.Helpers
 {

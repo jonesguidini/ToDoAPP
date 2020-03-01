@@ -1,14 +1,12 @@
-﻿using System;
+﻿using APP.Domain.Entities;
+using APP.Domain.Filters;
+using APP.Domain.VMs;
+using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
-using APP.Domain.Entities;
-using APP.Domain.Entities.FluentValidation;
-using APP.Domain.Filters;
-using APP.Domain.VMs;
 
 namespace APP.Domain.Contracts.Services
 {

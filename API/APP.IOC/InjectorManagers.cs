@@ -1,5 +1,5 @@
-﻿using Autofac;
-using APP.Business.Managers;
+﻿using APP.Business.Managers;
+using Autofac;
 
 namespace APP.IOC
 {

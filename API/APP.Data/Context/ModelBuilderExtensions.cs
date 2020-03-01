@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using APP.Domain.Entities;
+﻿using APP.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace APP.Data.Context
 {

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 
 namespace APP.API.Swagger
 {
@@ -14,7 +14,7 @@ namespace APP.API.Swagger
         {
             services.AddSwaggerGen(c =>
             {
-                
+
                 //c.SchemaFilter<EnumSchemaFilter>(); // config para definir enums como string no swagger
 
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TODO APP", Version = "v1", Description = "Documentação da API do TODO APP" });

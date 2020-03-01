@@ -1,6 +1,6 @@
-﻿using Autofac;
-using APP.Business.Services;
+﻿using APP.Business.Services;
 using APP.Domain.Contracts.Services;
+using Autofac;
 
 namespace APP.IOC
 {
