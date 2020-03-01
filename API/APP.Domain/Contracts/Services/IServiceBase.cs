@@ -26,6 +26,8 @@ namespace APP.Domain.Contracts.Services
 
         Task<IQueryable<TEntity>> GetAll(bool? getDeletedRegisters = false);
 
+        Task<IQueryable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate);
+
         Task<IQueryable<TEntity>> GetAll(IList<string> includes, bool? getDeletedRegisters = false);
 
         Task<IQueryable<TEntity>> GetPaginated(int page, int pageSize, bool? getDeletedRegisters = false);

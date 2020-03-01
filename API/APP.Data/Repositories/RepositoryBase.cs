@@ -114,8 +114,8 @@ namespace APP.Data.Repositories
         /// <returns></returns>
         public async Task<IQueryable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate, bool? getDeletedRegisters = false)
         {
-            var registers = await DbSet.AsNoTracking().Where(predicate).Where(x => x.IsDeleted == getDeletedRegisters).ToListAsync();
-            return registers.AsQueryable();
+            var registers = await FindAsync(predicate).Result.Where(x => x.IsDeleted == getDeletedRegisters).ToListAsync();
+            return await Task.Run(() => registers.AsQueryable());
         }
 
         /// <summary>
