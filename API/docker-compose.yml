@@ -1,17 +1,18 @@
 version: "3.7"
 services:
-    db_mysql: 
+    db: 
+        build: "./APP.Data"
         image: mysql
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         ports:
             - 3307:3306
-        environment:
-            MYSQL_ROOT_PASSWORD: mudar123
+        # environment:
+        #     MYSQL_ROOT_PASSWORD: mudar123
         volumes:
              - C:/MYSQL_DATA/volumes:/var/lib/mysql
 
-    adminer:
+    ADMINER:
         image: adminer
         restart: always
         ports:
@@ -21,16 +22,16 @@ services:
         build: .
         image: todoapi
         restart: always
-        environment: 
-            DB_HOST: db_mysql
-            DB_DATABASE: todoapi
-            DB_USERNAME: root
-            DB_PASSWORD: mudar123
-            DB_PORT: 3307
+        # environment: 
+        #     DB_HOST: db
+        #     DB_DATABASE: todoapi
+        #     DB_USERNAME: root
+        #     DB_PASSWORD: mudar123
+        #     DB_PORT: 3307
         ports:
             - 80:80
             - 443:443
         depends_on: 
-            - db_mysql
+            - db
         links:
-            - db_mysql
+            - db

@@ -18,6 +18,11 @@
 --
 -- Table structure for table `Todos`
 --
+DROP DATABASE IF EXISTS todoapp;
+
+CREATE DATABASE todoapp;
+
+use todoapp;
 
 DROP TABLE IF EXISTS `Todos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
