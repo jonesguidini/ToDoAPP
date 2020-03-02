@@ -1,5 +1,3 @@
-using APP.Domain.Entities;
-
 namespace APP.Domain.VMs
 {
     public class UserVM : DeletedEntityVM

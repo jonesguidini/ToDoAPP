@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace APP.Data.Migrations
 {
-    [DbContext(typeof(SQLContext))]
+    [DbContext(typeof(DBContext))]
     [Migration("20200226172004_AdicionaRefDeletedUserTodoEntity")]
     partial class AdicionaRefDeletedUserTodoEntity
     {

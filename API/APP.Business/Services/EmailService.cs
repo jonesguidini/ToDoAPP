@@ -1,11 +1,11 @@
-﻿using System;
+﻿using APP.Business.Config;
+using APP.Domain.Contracts.Managers;
+using APP.Domain.Contracts.Services;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using Microsoft.Extensions.Configuration;
-using APP.Business.Config;
-using APP.Domain.Contracts.Managers;
-using APP.Domain.Contracts.Services;
 
 namespace APP.Business.Services
 {

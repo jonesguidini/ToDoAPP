@@ -1,6 +1,6 @@
-﻿using Autofac;
-using APP.Data.Repositories;
+﻿using APP.Data.Repositories;
 using APP.Domain.Contracts.Repositories;
+using Autofac;
 
 namespace APP.IOC
 {

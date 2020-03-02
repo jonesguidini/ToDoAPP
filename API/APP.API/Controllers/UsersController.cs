@@ -59,7 +59,7 @@ namespace APP.API.Controllers
 
             var userBanco = await _userRepository.GetById(id);
 
-            if(userBanco == null)
+            if (userBanco == null)
             {
                 NotificarError("Usuário", "Não existe um usuário para o ID informado.");
                 return CustomResponse();

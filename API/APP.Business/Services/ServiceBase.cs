@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
-using APP.Business.Config;
+﻿using APP.Business.Config;
 using APP.Domain.Contracts.FluentValidation;
 using APP.Domain.Contracts.Managers;
 using APP.Domain.Contracts.Repositories;
@@ -9,6 +7,8 @@ using APP.Domain.Entities;
 using APP.Domain.Entities.FluentValidation;
 using APP.Domain.Filters;
 using APP.Domain.VMs;
+using AutoMapper;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +53,11 @@ namespace APP.Business.Services
             }
 
             return obj;
+        }
+
+        public virtual async Task<IQueryable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
+        {
+            return repository.Search(predicate).Result;
         }
 
         public virtual bool Validate<TV, TE>(TV validation, TE entity) where TV : AbstractValidator<TE> where TE : BaseEntity

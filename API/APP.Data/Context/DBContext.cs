@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using APP.CrossCutting;
-using APP.Domain.Entities;
+﻿using APP.CrossCutting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace APP.Data.Context
 {
-    public class SQLContext : DbContext
+    public class DBContext : DbContext
     {
-        public SQLContext(DbContextOptions<SQLContext> options) : base(options) {
+        public DBContext(DbContextOptions<DBContext> options) : base(options)
+        {
             this.ChangeTracker.LazyLoadingEnabled = false;
             this.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }

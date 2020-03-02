@@ -1,8 +1,6 @@
-﻿using System;
+﻿using APP.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using APP.Domain.Entities;
 
 namespace APP.Domain.VMs
 {

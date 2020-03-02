@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using APP.Data.Context;
 using APP.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +11,17 @@ namespace APP.API.Data
 {
     public class SeedInitialData
     {
-        private readonly SQLContext _context;
+        private readonly DBContext _context;
         private DbSet<User> _users;
 
-        public SeedInitialData(SQLContext context)
+        public SeedInitialData(DBContext context)
         {
             _context = context;
             _users = context.Set<User>();
         }
 
-        public void SeedUsers(){
+        public void SeedUsers()
+        {
             var userData = System.IO.File.ReadAllText("../APP.Data/Seed/SeedBaseUsers.json");
             var users = JsonConvert.DeserializeObject<List<User>>(userData);
 
@@ -46,7 +47,8 @@ namespace APP.API.Data
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            using(var hmac = new HMACSHA512()){
+            using (var hmac = new HMACSHA512())
+            {
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }

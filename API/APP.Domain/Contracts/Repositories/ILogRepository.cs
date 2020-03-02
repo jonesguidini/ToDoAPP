@@ -2,8 +2,8 @@ using APP.Domain.Entities;
 
 namespace APP.Domain.Contracts.Repositories
 {
-    public interface ILogRepository: IRepositoryBase<Log>
+    public interface ILogRepository : IRepositoryBase<Log>
     {
-         
+
     }
 }

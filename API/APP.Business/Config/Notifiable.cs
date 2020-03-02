@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation.Results;
-using APP.Domain.Contracts.Managers;
+﻿using APP.Domain.Contracts.Managers;
 using APP.Domain.EntitiesConfig;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 
 namespace APP.Business.Config

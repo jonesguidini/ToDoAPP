@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using APP.Domain.Contracts.FluentValidation;
+﻿using APP.Domain.Contracts.FluentValidation;
 using APP.Domain.Contracts.Managers;
 using APP.Domain.Contracts.Repositories;
 using APP.Domain.Contracts.Services;

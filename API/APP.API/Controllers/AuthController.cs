@@ -1,14 +1,14 @@
 
+using APP.Domain.Contracts.Managers;
+using APP.Domain.Contracts.Repositories;
+using APP.Domain.DTOs;
+using APP.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using APP.Domain.Contracts.Managers;
-using APP.Domain.Contracts.Repositories;
-using APP.Domain.DTOs;
-using APP.Domain.Entities;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -119,7 +119,7 @@ namespace APP.API.Controllers
                 var message = ex.InnerException != null ? ex.InnerException.ToString() : ex.Message;
                 return CustomResponse(message);
             }
-            
+
 
         }
     }

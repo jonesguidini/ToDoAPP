@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using APP.Domain.Entities;
 
 namespace APP.Domain.DTOs

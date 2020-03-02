@@ -1,14 +1,12 @@
-﻿using System;
+﻿using APP.Domain.Entities;
+using APP.Domain.Filters;
+using APP.Domain.VMs;
+using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
-using APP.Domain.Entities;
-using APP.Domain.Entities.FluentValidation;
-using APP.Domain.Filters;
-using APP.Domain.VMs;
 
 namespace APP.Domain.Contracts.Services
 {
@@ -27,6 +25,8 @@ namespace APP.Domain.Contracts.Services
         Task<TEntity> GetById(int id, IList<string> includes, bool? getDeletedRegisters = false);
 
         Task<IQueryable<TEntity>> GetAll(bool? getDeletedRegisters = false);
+
+        Task<IQueryable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate);
 
         Task<IQueryable<TEntity>> GetAll(IList<string> includes, bool? getDeletedRegisters = false);
 

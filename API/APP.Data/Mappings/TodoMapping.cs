@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using APP.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using APP.Domain.Entities;
 
 namespace APP.Data.Mappings
 {
@@ -22,6 +22,11 @@ namespace APP.Data.Mappings
                 .IsRequired(true)
                 .HasColumnType("varchar(100)")
                 .HasColumnName("Title");
+
+            builder.Property(x => x.IsDone)
+                .IsRequired(false)
+                .HasColumnType("bit")
+                .HasColumnName("IsDone");
 
             builder
                 .HasOne(x => x.DeletedByUser)

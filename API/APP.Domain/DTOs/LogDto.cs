@@ -1,4 +1,3 @@
-using System;
 using APP.Domain.Entities;
 
 namespace APP.Domain.DTOs

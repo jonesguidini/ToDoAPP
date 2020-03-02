@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using APP.Business.Config;
+﻿using APP.Business.Config;
 using APP.Data.Context;
 using APP.Domain.Contracts.Managers;
 using APP.Domain.Contracts.Repositories;
 using APP.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +14,17 @@ namespace APP.Data.Repositories
 {
     public abstract class RepositoryBase<TEntity> : Notifiable, IRepositoryBase<TEntity> where TEntity : DeletedEntity, new()
     {
-        private readonly SQLContext sqlContext;
+        private readonly DBContext dbContext;
         protected readonly DbSet<TEntity> DbSet;
 
         /// <summary>
         /// Construtor de contexto do banco de dados
         /// </summary>
-        /// <param name="_sqlContext"></param>
-        public RepositoryBase(SQLContext _sqlContext, INotificationManager _notificationManager) : base(_notificationManager)
+        /// <param name="_dbContext"></param>
+        public RepositoryBase(DBContext _dbContext, INotificationManager _notificationManager) : base(_notificationManager)
         {
-            sqlContext = _sqlContext;
-            DbSet = sqlContext.Set<TEntity>();
+            dbContext = _dbContext;
+            DbSet = dbContext.Set<TEntity>();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace APP.Data.Repositories
         /// <returns></returns>
         public virtual async Task<TEntity> Update(TEntity obj)
         {
-            sqlContext.Entry(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            dbContext.Entry(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await SaveChanges();
             return obj;
         }
@@ -114,8 +114,8 @@ namespace APP.Data.Repositories
         /// <returns></returns>
         public async Task<IQueryable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate, bool? getDeletedRegisters = false)
         {
-            var registers = await DbSet.AsNoTracking().Where(predicate).Where(x => x.IsDeleted == getDeletedRegisters).ToListAsync();
-            return registers.AsQueryable();
+            var registers = await FindAsync(predicate).Result.Where(x => x.IsDeleted == getDeletedRegisters).ToListAsync();
+            return await Task.Run(() => registers.AsQueryable());
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace APP.Data.Repositories
         {
             try
             {
-                await sqlContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {

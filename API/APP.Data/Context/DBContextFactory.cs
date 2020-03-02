@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 namespace APP.Data.Context
 {
-    public class SQLContextFactory : IDesignTimeDbContextFactory<SQLContext>
+    public class DBContextFactory : IDesignTimeDbContextFactory<DBContext>
     {
         /// <summary>
-        /// Cria uma SQLContext
+        /// Cria uma DBContext
         /// </summary>
         /// <param name="args">Lista de argumentos</param>
         /// <returns>Contexto do banco</returns>
-        public SQLContext CreateDbContext(string[] args)
+        public DBContext CreateDbContext(string[] args)
         {
             var teste = Path.Combine(Directory.GetCurrentDirectory());
 
@@ -30,12 +27,12 @@ namespace APP.Data.Context
                 .Build();
 
             // Get connection string
-            var optionsBuilder = new DbContextOptionsBuilder<SQLContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<DBContext>();
             var connectionString = config.GetConnectionString("APPBD");
             Console.WriteLine($"CONNECTION STRING: {connectionString}");
             optionsBuilder.UseMySql(connectionString);
 
-            return new SQLContext(optionsBuilder.Options);
+            return new DBContext(optionsBuilder.Options);
         }
     }
 }

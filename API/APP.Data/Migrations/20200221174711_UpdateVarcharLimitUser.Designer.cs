@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace APP.Data.Migrations
 {
-    [DbContext(typeof(SQLContext))]
+    [DbContext(typeof(DBContext))]
     [Migration("20200221174711_UpdateVarcharLimitUser")]
     partial class UpdateVarcharLimitUser
     {

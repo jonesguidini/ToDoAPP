@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using APP.Domain.Contracts.Services;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using APP.Domain.Contracts.FluentValidation;
-using APP.Domain.Contracts.Managers;
-using APP.Domain.Contracts.Repositories;
-using APP.Domain.Contracts.Services;
-using APP.Domain.Entities;
 
 namespace APP.Business.Services
 {
