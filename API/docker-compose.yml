@@ -7,8 +7,6 @@ services:
     restart: always
     ports:
       - 3307:3306
-    # environment:
-    #     MYSQL_ROOT_PASSWORD: mudar123
     volumes:
       - C:/MYSQL_DATA/volumes:/var/lib/mysql
     networks:
@@ -29,11 +27,11 @@ services:
     image: todoapi
     restart: always
     # environment:
-    #     DB_HOST: db
-    #     DB_DATABASE: 'todoapp'
-    #     DB_USERNAME: 'root'
-    #     DB_PASSWORD: 'mudar123'
-    #     DB_PORT: 3306
+    #   - DB_HOST='172.28.1.5'
+    #   - DB_DATABASE='todoapp'
+    #   - DB_USERNAME='root'
+    #   - DB_PASSWORD='mudar123'
+    #   - DB_PORT='3306'
     ports:
       - 80:80
       - 443:443

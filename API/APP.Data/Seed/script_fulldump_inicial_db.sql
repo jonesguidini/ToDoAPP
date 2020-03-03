@@ -34,6 +34,7 @@ CREATE TABLE `Todos` (
   `DateDeleted` datetime(6) DEFAULT NULL,
   `DeletedByUserId` int DEFAULT NULL,
   `IsDeleted` tinyint(1) NOT NULL DEFAULT '0',
+  `IsDone` tinyint(1) NULL,
   PRIMARY KEY (`Id`),
   KEY `IX_Todos_DeletedByUserId` (`DeletedByUserId`),
   CONSTRAINT `ToDo.Possui.UserDeleted` FOREIGN KEY (`DeletedByUserId`) REFERENCES `Users` (`Id`)
