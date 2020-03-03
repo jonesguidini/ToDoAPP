@@ -8,7 +8,7 @@ export default props => (
     <Switch>
         <Route path="/todos" component={Todo} />
         <Route path="/about" component={About} />
-        <Redirect from="*" to='/todos' />
+        <Route path="/" exact component={Todo} />
     </Switch>
 
 )
