@@ -18,3 +18,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "APP.API.dll"]
+
+## The maintainer name and email
+MAINTAINER Jones Guidini <jonesguidini@gmail.com>

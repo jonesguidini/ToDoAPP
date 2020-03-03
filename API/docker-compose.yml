@@ -24,7 +24,7 @@ services:
 
   api:
     build: .
-    image: todoapi
+    image: jonesguidini/todoapi:latest
     restart: always
     # environment:
     #   - DB_HOST='172.28.1.5'
