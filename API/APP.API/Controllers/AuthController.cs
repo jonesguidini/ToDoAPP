@@ -17,7 +17,8 @@ using System.Threading.Tasks;
 
 namespace APP.API.Controllers
 {
-    [Route("api/authentication")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/authentication")]
     [ApiController]
     public class AuthController : APIController
     {

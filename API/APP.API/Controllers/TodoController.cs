@@ -15,7 +15,8 @@ using System.Threading.Tasks;
 namespace APP.API.Controllers
 {
     [Authorize]
-    [Route("api/todos")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/todos")]
     [ApiController]
     public class TodoController : APIController
     {
