@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace APP.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/todos")]
     [ApiController]
@@ -162,7 +162,8 @@ namespace APP.API.Controllers
                 return CustomResponse();
             }
 
-            await _todoService.DeleteLogically(todo);
+            //await _todoService.DeleteLogically(todo);
+            await _todoService.Delete(id);
 
             return CustomResponse("Tarefa excluida com sucesso!");
         }

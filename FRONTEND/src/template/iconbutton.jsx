@@ -3,7 +3,7 @@ import If from "../helper/if";
 
 export default props => (
   <If valid={!props.hide}>
-    <button className={"btn btn-" + props.style} onClick={props.onClick}>
+    <button className={"mr-1 btn btn-" + props.style} onClick={props.onClick}>
       <i className={"fa fa-" + props.icon}></i>
     </button>
   </If>
