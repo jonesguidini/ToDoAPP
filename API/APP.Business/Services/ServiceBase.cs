@@ -202,7 +202,7 @@ namespace APP.Business.Services
 
             List<MT> ListaMt = orderBy != null ? result.Select(mapper.Map<TEntity, MT>).ToList() : result.Select(mapper.Map<TEntity, MT>).OrderByDescending(x => x.GetType().GetProperty("Id").GetValue(x)).ToList();
 
-            return new PaginationVM<MT> { Data = ListaMt, TotalPages = totalPages, TotalData = totalRecords };
+            return new PaginationVM<MT> { PaginatedResult = ListaMt, TotalPages = totalPages, TotalData = totalRecords };
         }
 
         public virtual PaginationVM<MT> GetPaginated<MT>(int page, int pageSize, IList<MT> data = null, bool orderByUser = false, bool? getDeletedRegisters = false) where MT : BaseEntity
@@ -220,7 +220,7 @@ namespace APP.Business.Services
             else
                 result = result.OrderByDescending(x => x.GetType().GetProperty("Id").GetValue(x)).Skip((page - 1) * pageSize).Take(pageSize);
 
-            return new PaginationVM<MT> { Data = result.ToList(), TotalPages = totalPages, TotalData = totalRecords };
+            return new PaginationVM<MT> { PaginatedResult = result.ToList(), TotalPages = totalPages, TotalData = totalRecords };
         }
 
 
