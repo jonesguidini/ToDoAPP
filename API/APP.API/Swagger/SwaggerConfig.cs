@@ -39,7 +39,9 @@ namespace APP.API.Swagger
                     }
                 });
 
-                //c.DescribeAllEnumsAsStrings();
+                // Embora a IDE informa que esse método esta depreciado não apague ou comente a linha abaixo
+                // pois a mesma é responsável por traduzir os enums de orderby (paginação) para lista de strings
+                c.DescribeAllEnumsAsStrings();
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

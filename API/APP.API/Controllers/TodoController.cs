@@ -2,12 +2,16 @@
 using APP.Domain.Contracts.Services;
 using APP.Domain.DTOs;
 using APP.Domain.Entities;
+using APP.Domain.Filters;
+using APP.Domain.Filters.OrderBy;
 using APP.Domain.VMs;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -166,6 +170,44 @@ namespace APP.API.Controllers
             await _todoService.Delete(id);
 
             return CustomResponse("Tarefa excluida com sucesso!");
+        }
+
+
+        /// <summary>
+        /// Retornar registros paginados
+        /// </summary>
+        /// <param name="numPagina">Número da pagina corrente</param>
+        /// <param name="qtdPorPagina">Quantidade por página</param>
+        /// <param name="orderByFilter">Filtro para ordenação</param>
+        /// <param name="TipoOrderBy">Tipo de ordenação</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("paginatedResult/{numPagina}/{qtdPorPagina}")]
+        [ProducesResponseType(typeof(PaginationVM<TodoVM>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<PaginationVM<TodoVM>>> ListarPaginado(int numPagina, int qtdPorPagina, string titleFilter, TodoOrderBy? orderByFilter, TypeOrderBy TipoOrderBy = TypeOrderBy.Ascending)
+        {
+            Expression<Func<Todo, object>> orderBy = null;
+
+            switch (orderByFilter)
+            {
+                case TodoOrderBy.Title:
+                    orderBy = x => x.Title;
+                    break;
+                case TodoOrderBy.Created:
+                    orderBy = x => x.Created;
+                    break;
+                default:
+                    break;
+            }
+
+            var resultadoPaginado = new PaginationVM<TodoVM>();
+
+            if (!String.IsNullOrEmpty(titleFilter))
+                resultadoPaginado = _todoService.GetPaginated<TodoVM>(numPagina, qtdPorPagina, x => x.Title.ToLower().Contains(titleFilter.ToLower()), orderBy: orderBy, tipoOrderBy: TipoOrderBy);
+            else
+                resultadoPaginado = _todoService.GetPaginated<TodoVM>(numPagina, qtdPorPagina, orderBy: orderBy, tipoOrderBy: TipoOrderBy);
+
+            return CustomResponse(resultadoPaginado);
         }
 
     }

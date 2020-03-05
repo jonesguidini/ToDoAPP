@@ -1,3 +1,7 @@
 .markAsDone {
-    text-decoration: line-through
+  text-decoration: line-through;
+}
+
+.tableActions {
+  width: 165px;
 }
