@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import _ from "lodash"; // conhecido como 'underscore'
 
 const Pagination = props => {
-    
-  const { itemsCount, pageSize, currentPage, onPageChange } = props;
+  const { currentPage, onPageChange, totalPages } = props;
 
-  const pagesCount = Math.ceil(itemsCount / pageSize);
-
-  if (pagesCount === 1) return null; // caso a qtd de itens retorne apenas uma pagina não montamos a paginação
-  const pages = _.range(1, pagesCount + 1); // cria array de pages , pagesCount precisa ser somado um pq a contagem de um array sempre começa do indice 0 em vez de 1
+  if (totalPages === 1) return null; // caso a qtd de itens retorne apenas uma pagina não montamos a paginação
+  const pages = _.range(1, totalPages + 1); // cria array de pages , pagesCount precisa ser somado um pq a contagem de um array sempre começa do indice 0 em vez de 1
 
   return (
     <nav aria-label="Page navigation example">

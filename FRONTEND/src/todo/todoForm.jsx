@@ -4,8 +4,10 @@ import Iconbutton from "../template/iconbutton";
 
 export default props => {
   const keyHandler = e => {
+    console.log(e.key);
+
     if (e.key === "Enter") {
-      e.shiftKey ? props.handleSearch() : props.handleAdd();
+      props.handleAdd();
     } else if (e.key === "Escape") {
       props.handleClear();
     }

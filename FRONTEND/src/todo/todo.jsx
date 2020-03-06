@@ -4,33 +4,33 @@ import Axios from "axios";
 import PageHeader from "../template/pageHeader";
 import TodoForm from "./todoForm";
 import TodoList from "./todoList";
-import Pagination from '../helper/pagination';
+import Pagination from "../helper/pagination";
 
 const URL = "http://localhost:5000/api/v1/todos";
 
 class Todo extends Component {
   constructor(props) {
     super(props);
-    //this.getData();
-    //this.getTotalRecords();
   }
 
-  state = { 
-    title: "", 
+  state = {
+    title: "",
     data: [],
-    pageSize: 1, // qtd de registros por pagina
-    currentPage: 1 // pagina inicial sempre começara com valor 1
-  }
-  
-  componentDidMount = () => {
-    this.getData()
-  }
+    pageSize: 3, // qtd de registros por pagina
+    currentPage: 1, // pagina inicial sempre começara com valor 1
+    totalPages: 0,
+    totalData: 0
+  };
 
-  montarUrlApiGet = (title) => {
+  componentDidMount = () => {
+    this.getData();
+  };
+
+  montarUrlApiGet = title => {
     const search = title ? `titleFilter=${title}&` : "";
-    const {currentPage, pageSize} = this.state
-    return (`${URL}/paginatedResult/${currentPage}/${pageSize}?${search}orderByFilter=Created&TipoOrderBy=Descending`);
-  }
+    const { currentPage, pageSize } = this.state;
+    return `${URL}/paginatedResult/${currentPage}/${pageSize}?${search}orderByFilter=Created&TipoOrderBy=Descending`;
+  };
 
   getData = (title = "") => {
     const urlFiltro = this.montarUrlApiGet(title);
@@ -39,18 +39,23 @@ class Todo extends Component {
       this.setState({
         ...this.state,
         title,
-        data: resp.data.data.PaginatedResult
+        data: resp.data.data.PaginatedResult,
+        totalData: resp.data.data.TotalData,
+        totalPages: resp.data.data.TotalPages
       });
     });
-  }
+  };
 
+  handlePageChange = page => {
+    this.setState({ ...this.state, currentPage: page }, () => this.getData());
+  };
 
   handleAdd = () => {
     const title = this.state.title;
-    if(title.trim() != "")
+    if (title.trim() != "")
       Axios.post(URL + "/add", { title }).then(resp => this.getData());
 
-      this.getData(this.state.title);
+    this.getData(this.state.title);
   };
 
   handleSearch = filter => {
@@ -63,20 +68,6 @@ class Todo extends Component {
     );
   };
 
-  
-
-  getTotalRecords = () => {
-    let total = 0
-
-    Axios.get(URL).then(resp => {
-      this.total = resp.data.data.length;
-      //console.log('1->' + this.total);
-    });
-
-    //console.log('2->' + this.total);
-    return this.total;
-  }
-
   handleRemove = todo => {
     Axios.delete(`${URL}/delete/${todo.Id}`).then(resp =>
       this.getData(this.state.title)
@@ -88,13 +79,17 @@ class Todo extends Component {
   };
 
   handleClear = () => {
-    this.getData();
-  };
-
-  handlePageChange = page => {
-    console.log(page);
-    this.setState({ ...this.state, currentPage: page });
-    this.getData()
+    this.setState(
+      {
+        title: "",
+        data: [],
+        pageSize: 3, // qtd de registros por pagina
+        currentPage: 1, // pagina inicial sempre começara com valor 1
+        totalPages: 0,
+        totalData: 0
+      },
+      () => this.getData()
+    );
   };
 
   render() {
@@ -113,14 +108,12 @@ class Todo extends Component {
           handleRemove={this.handleRemove}
           handleUpdateStatus={this.handleUpdateStatus}
         />
-        
+
         <Pagination
-          itemsCount={this.getTotalRecords()}
-          pageSize={this.state.pageSize}
+          totalPages={this.state.totalPages}
           currentPage={this.state.currentPage}
           onPageChange={this.handlePageChange}
         />
-
       </div>
     );
   }
