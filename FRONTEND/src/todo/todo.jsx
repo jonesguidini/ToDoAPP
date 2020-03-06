@@ -16,7 +16,7 @@ class Todo extends Component {
   state = {
     title: "",
     data: [],
-    pageSize: 3, // qtd de registros por pagina
+    pageSize: 2, // qtd de registros por pagina
     currentPage: 1, // pagina inicial sempre começara com valor 1
     totalPages: 0,
     totalData: 0
@@ -53,9 +53,9 @@ class Todo extends Component {
   handleAdd = () => {
     const title = this.state.title;
     if (title.trim() != "")
-      Axios.post(URL + "/add", { title }).then(resp => this.getData());
-
-    this.getData(this.state.title);
+      Axios.post(URL + "/add", { title }).then(resp => {
+        this.setState({currentPage: 1}, () => this.getData()) 
+      });
   };
 
   handleSearch = filter => {
@@ -69,10 +69,15 @@ class Todo extends Component {
   };
 
   handleRemove = todo => {
-    Axios.delete(`${URL}/delete/${todo.Id}`).then(resp =>
-      this.getData(this.state.title)
-    );
+    Axios.delete(`${URL}/delete/${todo.Id}`).then(resp => this.getData(this.state.title));
   };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if(prevState.totalPages > this.state.totalPages){
+      const _currentPage = this.state.currentPage > this.state.totalPages ? this.state.totalPages : this.state.currentPage
+      this.setState({currentPage: _currentPage}, () => this.getData(this.state.title))
+    }
+  }
 
   handleChange = e => {
     this.setState({ ...this.state, title: e.target.value });
