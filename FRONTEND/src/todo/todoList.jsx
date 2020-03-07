@@ -12,8 +12,10 @@ export default props => {
 
     return list.map(todo => (
       <tr key={todo.Id}>
-        <td className={todo.IsDone ? "markAsDone" : ""}>{todo.Title}</td>
-        <td>
+        <td className={todo.IsDone ? "table-warning" : ""}>{todo.Title}</td>
+        <td
+          className={todo.IsDone ? "table-warning text-center" : "text-center"}
+        >
           <IconButton
             style="success"
             hide={todo.IsDone}
@@ -37,11 +39,11 @@ export default props => {
   };
 
   return (
-    <table className="table mt-3">
-      <thead>
+    <table className="table mt-3 table-hover table-sm table-bordered">
+      <thead className="thead-light">
         <tr>
           <th>Descrição</th>
-          <th className="tableActions">Ações</th>
+          <th className="tableActions text-center">Ações</th>
         </tr>
       </thead>
       <tbody>{renderRows()}</tbody>
