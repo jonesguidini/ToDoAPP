@@ -6,10 +6,6 @@ export default props => {
   const renderRows = () => {
     const list = props.list || [];
 
-    const pStyle = {
-      textDecoration: "line-through"
-    };
-
     if(list.length == 0) {
       return (
         <tr><td className="text-center" colSpan="2">Nenhum registro encontrado</td></tr>
