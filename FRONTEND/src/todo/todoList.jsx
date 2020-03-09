@@ -12,8 +12,6 @@ export default props => {
       )
     }
 
-
-      
     return list.map(todo => {
 
       let classTitle = 'align-middle '
@@ -52,7 +50,7 @@ export default props => {
   };
 
   return (
-    <table className="table mt-3 table-hover table-sm table-bordered">
+    <table className="table mt-3 table-sm table-hover table-sm table-bordered">
       <thead className="thead-light">
         <tr>
           <th>Descrição</th>
