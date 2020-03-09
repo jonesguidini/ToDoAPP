@@ -57,7 +57,7 @@ namespace APP.Business.Services
 
         public virtual async Task<IQueryable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
         {
-            return repository.Search(predicate).Result;
+            return await Task.Run(() => repository.Search(predicate).Result);
         }
 
         public virtual bool Validate<TV, TE>(TV validation, TE entity) where TV : AbstractValidator<TE> where TE : BaseEntity

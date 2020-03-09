@@ -48,7 +48,7 @@ class Todo extends Component {
   };
 
   handlePageChange = page => {
-    this.setState({ ...this.state, currentPage: page }, () => this.getData());
+    this.setState({ ...this.state, currentPage: page }, () => this.getData(this.state.title));
   };
 
   handleAdd = () => {
@@ -60,7 +60,7 @@ class Todo extends Component {
   };
 
   handleSearch = filter => {
-    this.getData(this.state.title);
+    this.setState({...this.state, currentPage: 1}, () => this.getData(this.state.title))
   };
 
   handleUpdateStatus = todo => {
