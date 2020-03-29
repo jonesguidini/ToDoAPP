@@ -898,3 +898,5 @@ yarn-error.log
 /IPEA.COBRADI.Application/Properties
 appsettings.**.json
 !appsettings.json
+
+_Published/*

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import PageHeader from "../template/pageHeader";
 import TodoForm from "./todoForm";
 import TodoList from "./todoList";
 import Pagination from "../helper/pagination";
 import TableInfo from "./tableInfo";
+import queryString from "query-string";
 
 const URL = "http://localhost:5000/api/v1/todos";
 
@@ -17,7 +19,7 @@ class Todo extends Component {
   state = {
     title: "",
     data: [],
-    pageSize: 10, // qtd de registros por pagina
+    pageSize: 20, // qtd de registros por pagina
     currentPage: 1, // pagina inicial sempre começara com valor 1
     totalPages: 0,
     totalData: 0
@@ -25,6 +27,7 @@ class Todo extends Component {
 
   componentDidMount = () => {
     this.getData();
+    console.log("----->" + this.props.location.search);
   };
 
   montarUrlApiGet = title => {
@@ -48,7 +51,9 @@ class Todo extends Component {
   };
 
   handlePageChange = page => {
-    this.setState({ ...this.state, currentPage: page }, () => this.getData(this.state.title));
+    this.setState({ ...this.state, currentPage: page }, () =>
+      this.getData(this.state.title)
+    );
   };
 
   handleAdd = () => {
@@ -60,7 +65,9 @@ class Todo extends Component {
   };
 
   handleSearch = filter => {
-    this.setState({...this.state, currentPage: 1}, () => this.getData(this.state.title))
+    this.setState({ ...this.state, currentPage: 1 }, () =>
+      this.getData(this.state.title)
+    );
   };
 
   handleUpdateStatus = todo => {
@@ -94,12 +101,9 @@ class Todo extends Component {
   handleClear = () => {
     this.setState(
       {
+        ...this.state,
         title: "",
-        data: [],
-        pageSize: 3, // qtd de registros por pagina
-        currentPage: 1, // pagina inicial sempre começara com valor 1
-        totalPages: 0,
-        totalData: 0
+        currentPage: 1 // pagina inicial sempre começara com valor 1
       },
       () => this.getData()
     );
@@ -113,6 +117,7 @@ class Todo extends Component {
           small="Cadastro"
           qtdRegistros={this.state.totalData}
         ></PageHeader>
+
         <TodoForm
           title={this.state.title}
           handleChange={this.handleChange}
@@ -120,6 +125,7 @@ class Todo extends Component {
           handleSearch={this.handleSearch}
           handleClear={this.handleClear}
         />
+
         <TodoList
           list={this.state.data}
           handleRemove={this.handleRemove}
@@ -130,6 +136,8 @@ class Todo extends Component {
           totalPages={this.state.totalPages}
           currentPage={this.state.currentPage}
           onPageChange={this.handlePageChange}
+          pageSize={this.state.pageSize}
+          filterTitle={this.state.title}
         />
 
         {/* <TableInfo totalData={this.state.totalData} /> */}
